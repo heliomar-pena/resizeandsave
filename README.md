@@ -106,7 +106,7 @@ saveMultipleImages(param1, param2, function())
 Upload the original image and 3 smaller images to Cloudinary.
 
 **param1** = The image returned from the processFile function or the File object stored in event.target.file [0]      
-**param2** = An object with the data from the cloudinary api. With this data: {url: '', key: '', preset: ''}
+**param2** = An object with the data from the cloudinary api. With this data: {url: '', key: '', preset: ''}      
 **function()** = An optional function that will allow you to obtain the upload process of those 4 images. This must receive two parameters: `(state, num)`, which will be the State of the load: (false, true, 'done') and the percentage of this. With this data in your function you could use it to create a loading bar.
 
 **Returns**: A promise that contains the URL and publicId of all image qualities. In order: 50w, 320w, 720w, original size.
