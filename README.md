@@ -113,13 +113,14 @@ Upload the original image and 3 smaller images to Cloudinary.
 
 **Example:**
 
-HTML
+HTML:
 ```HTML
     <form onSubmit="saveMultipleImages()" method="post">
         <button type="submit">Upload image in various qualities</button>
     </form>
 ```
 
+Script:
 ```javascript
      const saveMultipleImages = async () => {
       // We create an event that modifies the variables that move our loading bar
