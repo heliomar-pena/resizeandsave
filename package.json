@@ -1,0 +1,12 @@
+{
+  "name": "resizeandsave",
+  "version": "1.0.0",
+  "description": "It is a library that allows you to upload images in different qualities from a single image, through an endpoint.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify index.js --standalone resizeandsave -o ./dist/resizeandsave.js"
+  },
+  "author": "Katsu08 <katsukeinz@gmail.com>",
+  "license": "MIT"
+}

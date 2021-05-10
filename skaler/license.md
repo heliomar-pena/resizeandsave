@@ -1,0 +1,1 @@
+Copyright (c) Terkel Gjervig <terkel@terkel.com> (terkel.com)
