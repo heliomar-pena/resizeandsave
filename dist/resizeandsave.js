@@ -72,7 +72,7 @@ const saveImage = async function(image = null, api = {}){
                     await fetch(api.url, { method: "POST", body: formData })
                     .then(response => response.json()) //convertimos la respuesta en json
                     .then(data => {
-                        resolve({publicId: data.public_id, url: data.url})
+                        resolve({publicId: data.public_id, url: data.url, secure_url: data.secure_url})
                     })
                     .catch(error => reject({error}));
                 } catch(error){
