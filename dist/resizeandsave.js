@@ -3,33 +3,59 @@ const {skaler} = require('./skaler/skaler.js');
 
 /**
  * 
- * @param {input file event} event 
+ * @param {input file event, File Object, Data64/String route image} event 
  * @param {String} previewImg (optional ID or Class of item where to place a preview of the rendered image) 
  */
-const processFile = function (event, previewImg) {
+const processFile = async function (event, previewImg) {
     try{
-        if(event.target.files.length > 0){
+        let image = event;
+
+        // Validating if the image is a data64 or image route
+        // Then, if it is, convert it to File Object
+        if(typeof image == "string"){
+            let filename = (image.match(/(\w+)(\.\w+\.\w+)/) || ["", "newImage"])[1];
+            let mimeType = "image/png";
+
+            await srcToFile(image, filename, mimeType).then(file=>{
+                image = file;
+            });
+        }
+
+        if(isAInputFileEventOrFileObject(image)){
             let preview = document.getElementById(previewImg) || document.getElementsByClassName(previewImg);
             
-            const imagen = event.target.files[0];
+            const imagen = typeof image.target == "undefined"? image:image.target.files[0];
             
             let reader = new FileReader();
             
             if(previewImg !== ''){
-                reader.onload = (event) => {
-                    preview.src = event.target.result;
+                reader.onload = (image) => {
+                    preview.src = image.target.result;
                 }
             }
             
             reader.readAsDataURL(imagen);
             
             return imagen;
+        } else{
+            throw('The image must be an Input File event or a File Object, data64 image or some image path.')
         }
     } catch(error){
         console.error(error);
     }
 }
 
+const isAInputFileEventOrFileObject = function (event) {
+    return (typeof event.target !== "undefined" && event.target.files.length > 0) || 
+            (typeof event.type !== "undefined" && event.type.match(/image\//) !== null)
+}
+
+const srcToFile = async (src, fileName, mimeType) => {
+    return await (fetch(src)
+        .then((res)=>{return res.arrayBuffer();})
+        .then((buf)=>{return new File([buf], fileName, {type:mimeType});})
+    );
+}
 
 const editImg = async function(file = null, opts = '') {
     try{
