@@ -40,9 +40,11 @@ import resizeandsave from '@/assets/resizeandsave.js'
 processFile(param1, param2)
 ```
 
-It helps to read the event that has been activated by the user through an input type file, returning the "processed" image and placing a preview (optional) of the image in the object that has the ID or class passed in the parameter two
+Returns the "processed" image and placing a preview (optional) of the image in the element that has the ID or class passed in the parameter two.
 
-**param1** = input file change event.      
+It allows: Input File event, javascript File Object, Data64 Image, Static image route.
+
+**param1** = Image (check "It allows")
 **param2** = name of the ID or Class (unique) of an img tag where you want the image that opened in the input file to be displayed.
 
 **Returns**: The image object obtained from event.target.files [0]
