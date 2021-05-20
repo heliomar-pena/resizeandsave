@@ -6,14 +6,14 @@ const {skaler} = require('./skaler/skaler.js');
  * @param {input file event, File Object, Data64/String route image} event 
  * @param {String} previewImg (optional ID or Class of item where to place a preview of the rendered image) 
  */
- const processFile = async function (event, previewImg) {
+const processFile = async function (event, previewImg) {
     try{
         let image = event;
 
         // Validating if the image is a data64 or image route
         // Then, if it is, convert it to File Object
         if(typeof image == "string"){
-            let filename = image.match(/(\w+)(\.\w+.\w+)/) || "newImage";
+            let filename = (image.match(/(\w+)(\.\w+\.\w+)/) || ["", "newImage"])[1];
             let mimeType = "image/png";
 
             await srcToFile(image, filename, mimeType).then(file=>{
