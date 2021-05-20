@@ -34,6 +34,8 @@ import resizeandsave from '@/assets/resizeandsave.js'
 
 # How to use
 
+## processFile()
+
 ```javascript
 processFile(param1, param2)
 ```
@@ -44,6 +46,8 @@ It helps to read the event that has been activated by the user through an input 
 **param2** = name of the ID or Class (unique) of an img tag where you want the image that opened in the input file to be displayed.
 
 **Returns**: The image object obtained from event.target.files [0]
+
+**Require**: Is and async function. Please use await to get the result correctly
 
 **Example:**
 
@@ -56,8 +60,8 @@ HTML:
 
 Script:
 ```javascript
-const processFile = (event) => {
-    image = resizeandsave.processFile(event, "imgPreview");
+const processFile = async (event) => {
+    image = await resizeandsave.processFile(event, "imgPreview");
  }
 ```
 
@@ -66,7 +70,7 @@ const processFile = (event) => {
 
 ![image](https://user-images.githubusercontent.com/66505715/117488352-4bd2c400-af3a-11eb-84ab-0f394a1595b3.png)
 
-
+## saveSingleImage()
 
 ```javascript
 saveSingleImage(param1, param2)
@@ -78,6 +82,8 @@ Upload an original size image to the endpoint that you send as a parameter
 **param2** = An object with the data from the cloudinary api. With this data: {url: '', key: '', preset: ''}
 
 **Returns**: A promise containing the URL and publicId of the uploaded image.
+
+**Require**: Is and async function. Please use await to get the result correctly
 
 **Example:**
 
@@ -97,7 +103,7 @@ const saveSingleImage = async (image, api) =>{
     }
 ```
 
-
+## saveMultipleImages()
 
 ```javascript
 saveMultipleImages(param1, param2, function()) 
@@ -110,6 +116,8 @@ Upload the original image and 3 smaller images to Cloudinary.
 **function()** = An optional function that will allow you to obtain the upload process of those 4 images. This must receive two parameters: `(state, num)`, which will be the State of the load: (false, true, 'done') and the percentage of this. With this data in your function you could use it to create a loading bar.
 
 **Returns**: A promise that contains the URL and publicId of all image qualities. In order: 50w, 320w, 720w, original size.
+
+**Require**: Is and async function. Please use await to get the result correctly
 
 **Example:**
 
