@@ -118,6 +118,31 @@ const saveImage = async function(image = null, api = {}){
  * 
  * @param {*} image processed image (use processFile function for that)
  * @param {*} api {url, key, preset} 
+ * @param {*} size (Pixels width that you want be your image)
+ */
+
+const saveImageCustomSize = async function(image = null, api = {}, size = 100) {
+    return new Promise(async (resolve, reject) => {
+        if(api.url !== undefined && api.key !== undefined && api.preset !== undefined && api.image !== null){
+            const customImage = await editImg(image, {width: size});
+
+            await saveImage(customImage, {url: api.url, key: api.key, preset: api.preset})
+             .then(res => {
+                resolve(res);
+             })
+             .catch(() => {
+                reject('Ocurrió un error subiendo las imágenes');
+             });
+        } else{
+            reject('The function "saveImageCustomSize" need a processed image (use processFile function for that) and an object param that contain {url, key, preset}');
+        }
+    });
+}
+
+/**
+ * 
+ * @param {*} image processed image (use processFile function for that)
+ * @param {*} api {url, key, preset} 
  * @param {*} uploading (OPTIONAL State object that contain uploadProgress for the upload bar)
  */
 
@@ -179,7 +204,8 @@ const saveMultipleImages = async function(image = null, api = {}, uploading = (s
     });
 }
 
-module.exports = {processFile, editImg, saveImage, saveMultipleImages};
+module.exports = {processFile, editImg, saveImage, saveMultipleImages, saveImageCustomSize};
+
 },{"./skaler/skaler.js":2}],2:[function(require,module,exports){
 const skaler = function (file, { scale, width, height, name = file.name, type = file.type } = {}) {
 	return new Promise((res, rej) => {
